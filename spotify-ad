@@ -1,6 +1,6 @@
 #!/usr/bin/env osascript
 
--- a show help subroutine
+-- Show help subroutine
 on showMSG()
     set msg to "Use the following commands:\n"
     set msg to msg & "  mute               - Mute all Ads\n"
@@ -15,7 +15,7 @@ on run argv
   end if
   
 
-  set state to "Music"
+  set state to "Ad"
   set command to item 1 of argv
   using terms from application "Spotify"
     repeat while true
@@ -38,6 +38,7 @@ on run argv
               set sound volume to lastVolume 
             end if
         	end tell
+
         -- Swap Mode
         else if command is equal to "swap" then -- TODO fix pausing issue
         	tell application "Spotify"
@@ -49,6 +50,7 @@ on run argv
               set sound volume to lastVolume 
             end if
         	end tell
+
         -- Remove Mode
         else if command is equal to "rm" then -- TODO do somthing here :)
   	      tell application "Spotify"
@@ -56,22 +58,27 @@ on run argv
 
   	            set sound volume to 0
   	            set state to "Ad"
-                Tell application "itunes" to play
+                Tell application "itunes"  to play
+                Tell application "Spotify" to play
 
               else if state is equal to "Ad"
 
                 Tell application "itunes" 
                   if get finish of current track -  player position is less than 1
                     set state to "Music"
-                    Tell application "itunes" to next track
-                    Tell application "itunes" to pause
-                    set sound volume to lastVolume
+                    Tell application "itunes"  to next track
+                    Tell application "itunes"  to pause
+                    Tell application "Spotify" to set sound volume to lastVolume
+                    Tell application "Spotify" to play
+                  else
+                    Tell application "Spotify" to if ":ad:" is not in spotify url of current track then pause
                   end if
                 end Tell
 
   	          end if
   	      end tell
 
+        -- Show Help
   	    else 
   	     return showMSG()
         end if
