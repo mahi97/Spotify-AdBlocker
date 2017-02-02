@@ -28,14 +28,16 @@ Run the provided installer:
 make a symbolic link into `/usr/local/bin/`:
 
 ```bash
-ln -s $(pwd)/SpotifyControl /usr/local/bin/spotify
+ln -s $(pwd)/spotify-ad /usr/local/bin/spotify-ad
 ```
 
 ### Usage
 
-If you installed `Spotify-AdKiller` correctly, a new entry called `Spotify (AdKiller)` should appear in your menu. This launcher will start Spotify in ad-free mode. The script will terminate automatically as soon as Spotify exits. As mentioned before, **this is for testing purposes ONLY** so use this new entry only when your purposes are **testing**.
 
-**Important note:** Please make sure you don't have notifications disabled in your Spotify configuration (`ui.track_notifications_enabled=true` in `~/.config/spotify/User/<your username>/prefs`).
+* To run spotify-ad in mute mode, type `spotify-ad mute`
+* To run spotify-ad in swap mode, type `spotify-ad swap`
+* To run spotify-ad in rm   mode, type `spotify-ad rm`
+* To show a list of these commands, just type `spotify-ad`.
 
 
 **Modes**
