@@ -5,7 +5,7 @@ on showMSG()
     set msg to "Use the following commands:\n"
     set msg to msg & "  mute               - Mute all Ads\n"
     set msg to msg & "  swap               - Swap ad with your local playlist instead of ads\n"
-    set msg to msg & "  remove             - Play your local playlist like there's no ads at all\n"
+    set msg to msg & "  rm                 - Play your local playlist like there's no ads at all\n"
     return msg
 end showMSG
 
@@ -19,45 +19,63 @@ on run argv
   set command to item 1 of argv
   using terms from application "Spotify"
     repeat while true
+      repeat 1 times
+        if application "Spotify" is not running then exit repeat -- simulate continue
 
-		  -- Set LastVolume
-		  set lastVolume to 100
-		  tell application "Spotify"
-		  	if sound volume is not 0
-		  		set lastVolume to sound volume
-		  	end if
-		  end tell
+        
 
-      if command is equal to "mute" then
-	      tell application "Spotify"
-          if ":ad:" is in spotify url of current track then
-            set sound volume to 0
-	  			else
-            set sound volume to lastVolume 
-          end if
-      	end tell
-      else if command is equal to "swap" then -- TODO fix pausing issue
-      	tell application "Spotify"
-          if ":ad:" is in spotify url of current track then
-            set sound volume to 0
-            Tell application "itunes" to play
-	  			else
-	  				Tell application "itunes" to pause
-            set sound volume to lastVolume 
-          end if
-      	end tell
-      else if command is equal to "remove" then -- TODO do somthing here :)
-	      tell application "Spotify"
-	          if ":ad:" is in spotify url of current track or state is equal to "Music" then
-	            set sound volume to 0
-	            set state to "Ad"
-		  			else if state is equal to "Ad"
-	            set sound volume to 100
-	          end if
-	      end tell
-	    else 
-	     return showMSG()
-      end if
+  		  -- Set LastVolume
+  		  set lastVolume to 100
+  		  tell application "Spotify" to if sound volume is not 0 then set lastVolume to sound volume
+
+
+        -- Mute Mode
+        if command is equal to "mute" then
+  	      tell application "Spotify"
+            if ":ad:" is in spotify url of current track then
+              set sound volume to 0
+  	  			else
+              set sound volume to lastVolume 
+            end if
+        	end tell
+        -- Swap Mode
+        else if command is equal to "swap" then -- TODO fix pausing issue
+        	tell application "Spotify"
+            if ":ad:" is in spotify url of current track then
+              set sound volume to 0
+              Tell application "itunes" to play
+  	  			else
+  	  				Tell application "itunes" to pause
+              set sound volume to lastVolume 
+            end if
+        	end tell
+        -- Remove Mode
+        else if command is equal to "rm" then -- TODO do somthing here :)
+  	      tell application "Spotify"
+  	          if ":ad:" is in spotify url of current track and state is equal to "Music" then
+
+  	            set sound volume to 0
+  	            set state to "Ad"
+                Tell application "itunes" to play
+
+              else if state is equal to "Ad"
+
+                Tell application "itunes" 
+                  if get finish of current track -  player position is less than 1
+                    set state to "Music"
+                    Tell application "itunes" to next track
+                    Tell application "itunes" to pause
+                    set sound volume to lastVolume
+                  end if
+                end Tell
+
+  	          end if
+  	      end tell
+
+  	    else 
+  	     return showMSG()
+        end if
+      end repeat
     end repeat
   end using terms from
 
