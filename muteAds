@@ -1,0 +1,11 @@
+#!/usr/bin/env osascript
+
+repeat while true
+	tell application "Spotify"
+		if ":ad:" is in spotify url of current track then
+			set sound volume to 0
+		else
+			set sound volume to 100 
+		end if
+	end tell
+end repeat
