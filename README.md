@@ -39,6 +39,16 @@ ln -s $(pwd)/spotify-ad /usr/local/bin/spotify-ad
 - `swap`       : mute Spotify, play itunes current track, stop and unmute when ad    is over
 - `rm (remove)`: mute Spotify, play itunes current track, stop and unmute when track is over
 
+### TODO
+
+- [ ] Modes
+  - [x] swap   mode
+  - [x] remove mode
+  - [ ] Intel  mode 
+- [ ] Test needed
+- [ ] Add manual mode
+- [ ] Select Itunes Playlist
+
 ### Similar Projects
 
 
