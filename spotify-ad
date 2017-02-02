@@ -15,11 +15,12 @@ on run argv
   end if
   
 
-  set state to "Ad"
+  set state to "Music"
   set command to item 1 of argv
   using terms from application "Spotify"
     repeat while true
       repeat 1 times
+       delay 0.5
         if application "Spotify" is not running then exit repeat -- simulate continue
 
         
@@ -56,8 +57,8 @@ on run argv
   	      tell application "Spotify"
   	          if ":ad:" is in spotify url of current track and state is equal to "Music" then
 
-  	            set sound volume to 0
-  	            set state to "Ad"
+                set state to "Ad"
+                set sound volume to 0
                 Tell application "itunes"  to play
                 Tell application "Spotify" to play
 
@@ -66,10 +67,10 @@ on run argv
                 Tell application "itunes" 
                   if get finish of current track -  player position is less than 1
                     set state to "Music"
-                    Tell application "itunes"  to next track
-                    Tell application "itunes"  to pause
                     Tell application "Spotify" to set sound volume to lastVolume
                     Tell application "Spotify" to play
+                    Tell application "itunes"  to next track
+                    Tell application "itunes"  to pause
                   else
                     Tell application "Spotify" to if ":ad:" is not in spotify url of current track then pause
                   end if
