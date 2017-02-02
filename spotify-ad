@@ -1,0 +1,47 @@
+#!/usr/bin/env osascript
+
+on run argv
+  if count of argv is equal to 0 then
+    set msg to "Use the following commands:\n"
+    set msg to msg & "  mute               - Mute all Ads\n"
+    set msg to msg & "  swap               - Swap ad with your local playlist instead of ads\n"
+    set msg to msg & "  remove             - Play your local playlist like there's no ads at all\n"
+    return msg
+  end if
+  
+  set state to "Music"
+  set command to item 1 of argv
+  using terms from application "Spotify"
+    repeat while true
+      if command is equal to "mute" then
+	      tell application "Spotify"
+          if ":ad:" is in spotify url of current track then
+            set sound volume to 0
+	  			else
+            set sound volume to 100 
+          end if
+      	end tell
+      else if command is equal to "swap" then -- TODO
+      	tell application "Spotify"
+          if ":ad:" is in spotify url of current track then
+            set sound volume to 0
+	  			else
+            set sound volume to 100 -- TODO
+          end if
+      	end tell
+      else if command is equal to "remove" then -- TODO
+	      tell application "Spotify"
+	          if ":ad:" is in spotify url of current track or state is equal to "Music" then
+	            set sound volume to 0
+	            set state to "Ad"
+		  			else if state is equal to "Ad"
+		  				-- tell application "itunes"
+		  				-- end tell
+	            set sound volume to 100 -- TODO
+	          end if
+	      end tell
+      end if
+    end repeat
+  end using terms from
+
+end run
