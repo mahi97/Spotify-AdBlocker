@@ -1,4 +1,4 @@
-#Spotify Ad Blocker (for MacOS)
+# Spotify Ad Blocker (for MacOS)
 
 Listen to [Spotify](https://www.spotify.com) - without ads!
 
@@ -41,12 +41,10 @@ ln -s $(pwd)/spotify-ad /usr/local/bin/spotify-ad
 
 ### TODO
 
-- [ ] Modes
+- [x] Modes
+  - [x] mute   mode
   - [x] swap   mode
-  - [x] remove mode
-  - [ ] Intel  mode 
-- [ ] Test needed
-- [ ] Add manual mode
+  - [x] remove mode 
 - [ ] Select Itunes Playlist
 
 ### Similar Projects
