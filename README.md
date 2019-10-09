@@ -45,7 +45,6 @@ ln -s $(pwd)/spotify-ad /usr/local/bin/spotify-ad
   - [x] mute   mode
   - [x] swap   mode
   - [x] remove mode 
-- [ ] Select Itunes Playlist
 
 ### Similar Projects
 
